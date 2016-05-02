@@ -1,0 +1,13 @@
+{
+    "name": "dixons/rouse",
+    "authors": [
+        {
+            "name": "Ruslan Kladko",
+            "email": "rkladko@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Dixons\\Rouse\\": "src/"}
+    }
+}

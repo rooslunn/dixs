@@ -18,14 +18,12 @@ class ProductController
      */
     public function detail(int $id): string {
         $repository = ProductRepository::getInstance();
-        $result = $repository->findInCache($id);
-        if (0 === count($result)) {
-            $result = $repository->findInElastic($id); // or $repository->findInMySQL($id);
-            $repository->storeInCache($id, $result);
-        }
-        return json_encode($result);
+        return json_encode($repository->findById($id));
     }
 
+    /**
+     * @return string
+     */
     public function registerReport(): string {
         $repository = ProductRepository::getInstance();
         return json_encode($repository->requestRegister()->items());

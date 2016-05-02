@@ -32,23 +32,30 @@ class ProductRepository
         $this->requestRegister = new RequestRegisterFile();
     }
 
-    public function storeInCache(int $id, array $product) {
+    protected function storeInCache(int $id, array $product) {
         $this->cacheDriver->put($id, $product);    
     }
     
-    public function findInCache(int $id): array {
-        $this->requestRegister->increment($id);
+    protected function findInCache(int $id): array {
         return $this->cacheDriver->get($id);
     }
 
-    public function findInMySQL(int $id): array {
-        $this->requestRegister->increment($id);
+    protected function findInMySQL(int $id): array {
         return $this->mysqlDriver->findProduct($id);
     }
 
-    public function findInElastic(int $id): array {
-        $this->requestRegister->increment($id);
+    protected function findInElastic(int $id): array {
         return $this->elasticSearchDriver->findById($id);
+    }
+    
+    public function findById(int $id): array {
+        $result = $this->findInCache($id);
+        if (0 === count($result)) {
+            $result = $this->findInElastic($id); // or $repository->findInMySQL($id);
+            $this->storeInCache($id, $result);
+        }
+        $this->requestRegister->increment($id);
+        return $result;
     }
     
     public function requestRegister(): IRequestRegister {

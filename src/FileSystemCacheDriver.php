@@ -15,12 +15,7 @@ class FileSystemCacheDriver implements ICacheDriver
 
     public function get(int $id): array
     {
-        // TODO: Implement get() method.
-        return [
-            'id' => 1,
-            'name' => 'Name',
-            'price' => 1.00,
-        ];
+        return [];
     }
 
     public function put(int $id, array $info)

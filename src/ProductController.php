@@ -8,7 +8,6 @@
 
 namespace Dixons\Rouse;
 
-use Dixons\Rouse\ProductRepository;
 
 class ProductController
 {
@@ -17,15 +16,12 @@ class ProductController
      * @return string
      */
     public function detail(int $id): string {
-        $repository = ProductRepository::getInstance();
-        return json_encode($repository->findById($id));
+        $useCase = new FindProductUseCase(
+            ElasticSearchRepository::getInstance(),
+//            MySQLRepository::getInstance(),
+            new FileSystemCacheDriver(),
+            new RequestRegisterFile());
+        return json_encode($useCase->execute($id));
     }
 
-    /**
-     * @return string
-     */
-    public function registerReport(): string {
-        $repository = ProductRepository::getInstance();
-        return json_encode($repository->requestRegister()->items());
-    }
 }

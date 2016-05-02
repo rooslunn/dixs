@@ -12,4 +12,3 @@ use \Dixons\Rouse\ProductController;
 
 $controller = new ProductController();
 echo $controller->detail(1) . PHP_EOL;
-echo $controller->registerReport() . PHP_EOL;

@@ -22,7 +22,7 @@ class FindProductUseCase
         $this->requestRegister = $requestRegister;
     }
 
-    public function execute(int $id) {
+    public function execute(int $id): array {
         $result = $this->cacheDriver->get($id);
         if (0 === count($result)) {
             $result = $this->repository->findById($id);

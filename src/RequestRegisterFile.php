@@ -11,12 +11,13 @@ namespace Dixons\Rouse;
 
 class RequestRegisterFile implements IRequestRegister
 {
+    use SingletonTrait;
+
     const FILE_NAME = 'requests.rep';
 
     protected $register = [];
 
-    public function __construct()
-    {
+    protected function init() {
         $fh = fopen(self::FILE_NAME, 'c+');
         if (false === $fh) {
             throw new \RuntimeException(sprintf("Can't open file %s", self::FILE_NAME));

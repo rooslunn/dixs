@@ -17,10 +17,9 @@ class ProductController
      */
     public function detail(int $id): string {
         $useCase = new FindProductUseCase(
-            ElasticSearchRepository::getInstance(),
-//            MySQLRepository::getInstance(),
-            new FileSystemCacheDriver(),
-            new RequestRegisterFile());
+            ElasticSearchRepository::getInstance(), // or MySQLRepository::getInstance(),
+            FileSystemCacheDriver::getInstance(),
+            RequestRegisterFile::getInstance());
         return json_encode($useCase->execute($id));
     }
 

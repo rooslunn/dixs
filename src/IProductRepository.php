@@ -11,6 +11,5 @@ namespace Dixons\Rouse;
 
 interface IProductRepository
 {
-    public static function getInstance(): IProductRepository;
     public function findById(int $id): array;
 }

@@ -8,7 +8,11 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use \Dixons\Rouse\ProductController;
+use \Dixons\Rouse\{
+    ProductController,
+    RequestRegisterFile
+};
 
 $controller = new ProductController();
 echo $controller->detail(1) . PHP_EOL;
+echo json_encode(RequestRegisterFile::getInstance()->items()) . PHP_EOL;

@@ -12,6 +12,8 @@ use Dixons\Rouse\ICacheDriver;
 
 class FileSystemCacheDriver implements ICacheDriver
 {
+    
+    use SingletonTrait;
 
     public function get(int $id): array
     {

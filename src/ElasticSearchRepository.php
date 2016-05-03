@@ -11,7 +11,7 @@ namespace Dixons\Rouse;
 
 class ElasticSearchRepository implements IElasticSearchDriver, IProductRepository
 {
-    use RepositorySingleInstanceTrait;
+    use SingletonTrait;
     
     /**
      * @param int $id

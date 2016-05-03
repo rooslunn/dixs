@@ -11,7 +11,7 @@ namespace Dixons\Rouse;
 
 class MySQLRepository implements IMySQLDriver, IProductRepository
 {
-    use RepositorySingleInstanceTrait;
+    use SingletonTrait;
     
     /**
      * @param int $id

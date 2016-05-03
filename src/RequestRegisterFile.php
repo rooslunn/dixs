@@ -18,24 +18,21 @@ class RequestRegisterFile implements IRequestRegister
     protected $register = [];
 
     protected function init() {
-        $fh = fopen(self::FILE_NAME, 'c+');
-        if (false === $fh) {
-            throw new \RuntimeException(sprintf("Can't open file %s", self::FILE_NAME));
-        }
-        $registerString = fread($fh, max(filesize(self::FILE_NAME), 1));
-        $this->register = unserialize($registerString);
-        if (false === $this->register) {
+        if (! file_exists(self::FILE_NAME)) {
+            touch(self::FILE_NAME);
             $this->register = [];
+        } else {
+            $registerString = file_get_contents(self::FILE_NAME);
+            if ($registerString === FALSE) {
+                throw new \RuntimeException(sprintf("Can't open file %s", self::FILE_NAME));
+            }
+            $this->register = unserialize($registerString);
         }
-        fclose($fh);
     }
 
     public function __destruct()
     {
-        $registerString = serialize($this->register);
-        $fh = fopen(self::FILE_NAME, 'w');
-        fwrite($fh, $registerString);
-        fclose($fh);
+        file_put_contents(self::FILE_NAME, serialize($this->register));
     }
 
     public function increment(int $id)
